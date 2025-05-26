@@ -37,7 +37,7 @@ const ScrollToBottomButton = () => {
   return (
     <button
       onClick={scrollToBottom}
-      className="fixed bottom-10 right-10 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+      className="z-10 fixed bottom-10 right-10 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition flex items-center justify-center"
     >
       <FaCartArrowDown size={28} />
     </button>

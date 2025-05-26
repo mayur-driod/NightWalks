@@ -81,7 +81,7 @@ const Cart = ({ cart, setCart }) => {
       <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="text-gray-600">No items in cart</p>
+        <p className="text-gray-50">No items in cart</p>
       ) : (
         <>
           <div className="space-y-4">
@@ -105,7 +105,7 @@ const Cart = ({ cart, setCart }) => {
                       >
                         −
                       </button>
-                      <span className="px-2">{item.quantity}</span>
+                      <span className="px-2">People: {item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, 1)}
                         className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-lg font-bold"
@@ -122,28 +122,30 @@ const Cart = ({ cart, setCart }) => {
             ))}
           </div>
 
-          <div className="mt-4 text-lg font-bold text-right">
+          <div className="mt-4 text-lg text-white font-bold text-right">
             Total: ₹{total}
           </div>
 
           <form action="">
-            <label htmlFor="">Contact Number</label>
+            <label htmlFor="" className="text-white">
+              Contact Number
+            </label>
 
             <input
               type="tel"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               placeholder="eg. 9123568770"
-              className="border border-gray-300 px-4 py-2 w-full rounded mt-4 focus:outline-none focus:ring-2 focus:ring-black"
+              className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-4 focus:outline-none focus:ring-2 focus:ring-black"
             />
 
             <div className="flex flex-col">
-              <label>Address</label>
+              <label className="text-white">Address</label>
               <textarea
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 name="adress"
-                className="w-full p-2 h-20 border border-gray-300 rounded-xs"
+                className="w-full p-2 h-20 border bg-gray-50 border-gray-300 rounded-xs"
                 placeholder="eg. Flat No.201, 3rd floor, Nivasa, 15th cross, 8th main, Jaynagar 2nd phase, Bengaluru - 560056"
               />
             </div>
@@ -151,7 +153,7 @@ const Cart = ({ cart, setCart }) => {
 
           <button
             onClick={handlePayment}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded mt-3 w-full transition"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded mt-3 w-full transition"
           >
             Pay Now
           </button>
