@@ -3,36 +3,37 @@ import Cart from "./components/Cart";
 import { FaCartArrowDown } from "react-icons/fa";
 import ScrollToBottomButton from "./components/ScrollToBottomButton";
 import stars from "./assets/stars-1654074.jpg";
+import twentyseven from "./assets/27 May.webp";
 
 const products = [
   {
     id: "p1",
-    date: "31st may 2025",
+    date: "27th May 2025",
     venue: "Kudremukh National Park",
     price: 499,
-    pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1744860720/TerraQuest/Sightings/rjorkavfnvpoivc3wqbc.jpg",
+    pic: "https://ugc.production.linktr.ee/8b4a9e9e-3ee8-4f22-96e2-2f4626e07664_image.png?io=true&size=thumbnail-feature-v1_0",
   },
   {
     id: "p2",
-    date: "1st June 2025",
+    date: "31st May 2025",
     venue: "Kudremukh National Park",
     price: 799,
-    pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1745299237/TerraQuest/Sightings/zwvmbvlel8h7sqc4wo2v.jpg",
+    pic: "https://ugc.production.linktr.ee/bc80d637-17b6-412d-a022-53dd7939bbaa_image.png?io=true&size=thumbnail-feature-v1_0",
   },
-  {
-    id: "p3",
-    date: "Malabar Pit Viper",
-    venue: "Kudremukh National Park",
-    price: 999,
-    pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1744810516/TerraQuest/Sightings/oiftxsbprqhn8dbeprk9.jpg",
-  },
-  {
-    id: "p4",
-    date: "Oriental Garden Lizard",
-    venue: "Kudremukh National Park",
-    price: 1299,
-    pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1744793542/TerraQuest/Sightings/xcok7xn8d7jblxkylagi.jpg",
-  },
+  // {
+  //   id: "p3",
+  //   date: "Malabar Pit Viper",
+  //   venue: "Kudremukh National Park",
+  //   price: 999,
+  //   pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1744810516/TerraQuest/Sightings/oiftxsbprqhn8dbeprk9.jpg",
+  // },
+  // {
+  //   id: "p4",
+  //   date: "Oriental Garden Lizard",
+  //   venue: "Kudremukh National Park",
+  //   price: 1299,
+  //   pic: "https://res.cloudinary.com/dh4zgual6/image/upload/v1744793542/TerraQuest/Sightings/xcok7xn8d7jblxkylagi.jpg",
+  // },
 ];
 
 function Buy() {
@@ -90,8 +91,9 @@ function Buy() {
         <Cart cart={cart} setCart={setCart} />
       </div>
 
-      <ScrollToBottomButton className="z-10" />
+      <ScrollToBottomButton />
 
+      {/* Background Stars (need to work on and change) */}
       <img
         src={stars}
         alt="Background stars"

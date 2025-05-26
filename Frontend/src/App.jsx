@@ -7,6 +7,7 @@ import Contact from "./Contact";
 import Home from "./Home";
 import Dev from "./Dev";
 import DevPrivateRoute from "./components/DevPrivateRoute";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }

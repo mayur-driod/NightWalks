@@ -17,6 +17,18 @@ function Home() {
 
       {/* Main Content */}
 
+      <div className="absolute top-4 right-4 z-10 flex gap-4">
+        <a
+          href="https://www.instagram.com/attacusandpsyche"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className="text-[#f2f2f2] text-3xl transition-colors duration-300 hover:text-[#10e549] active:scale-90"
+        >
+          <FaInstagram />
+        </a>
+      </div>
+
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl pt-4 mt-40 md:pt-2 text-center">
         <img
           src={Logo}

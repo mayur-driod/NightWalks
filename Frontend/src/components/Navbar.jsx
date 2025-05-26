@@ -19,7 +19,10 @@ export default function Navbar() {
   return (
     <nav className="bg-black shadow-md px-6 py-4">
       <div className="flex justify-between items-center">
-        <NavLink className="text-2xl font-bold bg-gradient-to-r from-[#2ad807] via-[#32bc52] to-[#669d57] bg-clip-text text-transparent">
+        <NavLink
+          to={"/"}
+          className="text-2xl font-bold bg-gradient-to-r from-[#2ad807] via-[#32bc52] to-[#669d57] bg-clip-text text-transparent"
+        >
           Attacus & Psyche
         </NavLink>
 
