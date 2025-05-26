@@ -81,7 +81,7 @@ const Cart = ({ cart, setCart }) => {
       <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="text-gray-600">No items in cart</p>
+        <p className="text-gray-50">No items in cart</p>
       ) : (
         <>
           <div className="space-y-4">

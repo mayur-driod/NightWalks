@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Hamburger and Close icons
 
 const navItems = [
   { name: "Home", to: "/" },
-  { name: "Book Now", to: "/buy" },
+  { name: "Book Now", to: "/book" },
   { name: "Confirm Booking", to: "/track" },
   { name: "Contact", to: "/contact" },
   { name: "Devs", to: "/devs" },
@@ -19,9 +19,9 @@ export default function Navbar() {
   return (
     <nav className="bg-black shadow-md px-6 py-4">
       <div className="flex justify-between items-center">
-        <div className="text-2xl font-bold bg-gradient-to-r from-[#2ad807] via-[#32bc52] to-[#669d57] bg-clip-text text-transparent">
+        <NavLink className="text-2xl font-bold bg-gradient-to-r from-[#2ad807] via-[#32bc52] to-[#669d57] bg-clip-text text-transparent">
           Attacus & Psyche
-        </div>
+        </NavLink>
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-6">
