@@ -8,6 +8,7 @@ import Home from "./Home";
 import Dev from "./Dev";
 import DevPrivateRoute from "./components/DevPrivateRoute";
 import Footer from "./components/Footer";
+import DevDashboard from "./DevDashboard";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/devs"
+          element={
+            <DevPrivateRoute>
+              <DevDashboard />
+            </DevPrivateRoute>
+          }
+        />
+        <Route
+          path="/orders"
           element={
             <DevPrivateRoute>
               <Dev />

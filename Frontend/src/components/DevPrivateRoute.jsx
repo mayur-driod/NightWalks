@@ -7,8 +7,6 @@ const DevPrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
@@ -55,18 +53,6 @@ const DevPrivateRoute = ({ children }) => {
       console.error(err);
       setIsError(true);
     }
-  };
-
-  const handleLogout = () => {
-    axios
-      .post(
-        "https://product-page-pcoy.onrender.com/access/logout",
-        {},
-        { withCredentials: true },
-      )
-      .then(() => {
-        navigate("/");
-      });
   };
 
   if (isAuthenticated) {

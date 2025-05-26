@@ -36,7 +36,7 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   isActive
                     ? "text-green-400 font-semibold border-b-2 border-green-600 pb-1"
-                    : "text-gray-700 hover:text-green-600"
+                    : "text-gray-200 hover:text-green-600"
                 }
               >
                 {item.name}

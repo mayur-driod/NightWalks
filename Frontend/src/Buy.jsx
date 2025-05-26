@@ -3,7 +3,6 @@ import Cart from "./components/Cart";
 import { FaCartArrowDown } from "react-icons/fa";
 import ScrollToBottomButton from "./components/ScrollToBottomButton";
 import stars from "./assets/stars-1654074.jpg";
-import twentyseven from "./assets/27 May.webp";
 
 const products = [
   {
