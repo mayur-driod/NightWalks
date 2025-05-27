@@ -1,11 +1,23 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function DevDashboard() {
   // Dummy live events data
-  const [liveEvents, setLiveEvents] = useState([
-    { id: 1, name: "Night Walk 1", date: "2024-06-10", time: "20:00" },
-    { id: 2, name: "City Lights", date: "2024-06-12", time: "21:30" },
-  ]);
+  const [liveEvents, setLiveEvents] = useState([]);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const events = await axios.get("http://localhost:3000/Events/Fetch");
+      if (!events) {
+        return console.log("No events found!");
+      }
+      setLiveEvents(events.data);
+    };
+    getEvents();
+  }, []);
+
   const [form, setForm] = useState({
     name: "",
     date: "",
@@ -13,6 +25,8 @@ function DevDashboard() {
     price: 0,
     picture: null,
   });
+
+  const navigate = useNavigate();
 
   const handleFormChange = (e) => {
     const { name, value, files } = e.target;
@@ -22,19 +36,32 @@ function DevDashboard() {
     }));
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setLiveEvents((prev) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        name: form.name,
-        date: form.date,
-        time: form.time,
-        picture: form.picture,
-      },
-    ]);
-    setForm({ name: "", date: "", time: "", picture: null });
+
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("date", form.date);
+    formData.append("time", form.time);
+    formData.append("price", form.price);
+    formData.append("image", form.picture); // MUST match 'upload.single("image")'
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/Events/Create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      console.log("✅ Upload success:", res.data);
+      setForm({ name: "", date: "", time: "", price: 0, picture: null });
+    } catch (err) {
+      console.error("❌ Upload failed:", err.response?.data || err.message);
+    }
   };
 
   const handleOrdersClick = () => {
@@ -42,25 +69,55 @@ function DevDashboard() {
   };
 
   // Disable (retire) event by id
-  const handleDisableEvent = (id) => {
+  const handleDisableEvent = async (id) => {
     setLiveEvents((prev) => prev.filter((event) => event.id !== id));
+    console.log(id);
+    try {
+      const del = await axios.delete(
+        `http://localhost:3000/Events/Delete/${id}`,
+      );
+      console.log(del);
+    } catch (err) {
+      console.log("There was an error", err);
+    }
+  };
+
+  const handleLogout = () => {
+    axios
+      .post(
+        "http://localhost:3000/access/logout",
+        {},
+        { withCredentials: true },
+      )
+      .then(() => {
+        navigate("/");
+      });
   };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      <button
+        className="absolute right-5 top-20 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded shadow transition duration-150"
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        Logout
+      </button>
       {/* Sidepanel */}
       <aside className="w-64 bg-white border-r p-6">
         <h2 className="text-xl font-bold mb-4">Live Events</h2>
         <ul>
           {liveEvents.map((event) => (
             <li
-              key={event.id}
+              key={event._id}
               className="mb-3 flex items-center justify-between"
             >
               <div>
                 <div className="font-semibold">{event.name}</div>
                 <div className="text-sm text-gray-600">
-                  {event.date} @ {event.time}
+                  {new Date(event.date).toLocaleDateString("en-GB")} @{" "}
+                  {event.time}
                 </div>
                 {/* Show price with rupee symbol if price exists */}
                 {event.price !== undefined && (
@@ -69,7 +126,7 @@ function DevDashboard() {
               </div>
               <button
                 className="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                onClick={() => handleDisableEvent(event.id)}
+                onClick={() => handleDisableEvent(event._id)}
                 title="Disable Event"
               >
                 Disable

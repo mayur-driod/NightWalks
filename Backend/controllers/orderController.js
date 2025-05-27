@@ -9,7 +9,7 @@ const razorpay = new Razorpay({
 });
 
 createOrder = async (req, res) => {
-  const { contact, address, items, totalAmount } = req.body;
+  const { contact, email, address, items, totalAmount } = req.body;
   try {
     const options = {
       amount: totalAmount * 100, // INR to paisa
@@ -21,6 +21,7 @@ createOrder = async (req, res) => {
 
     const newOrder = await Order.create({
       contact,
+      email,
       address,
       items,
       totalAmount,

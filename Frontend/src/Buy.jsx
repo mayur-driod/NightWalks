@@ -3,6 +3,7 @@ import Cart from "./components/Cart";
 import { FaCartArrowDown } from "react-icons/fa";
 import ScrollToBottomButton from "./components/ScrollToBottomButton";
 import stars from "./assets/stars-1654074.jpg";
+import Booking from "./components/Booking";
 
 const products = [
   {
@@ -49,12 +50,17 @@ function Buy() {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
+        // If item already in cart, increment only if quantity < 6
         return prev.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+                ...item,
+                quantity: item.quantity < 6 ? item.quantity + 1 : item.quantity,
+              }
             : item,
         );
       } else {
+        // If item not in cart, add with quantity 1
         return [...prev, { ...product, quantity: 1 }];
       }
     });
