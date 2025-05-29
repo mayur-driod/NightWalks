@@ -50,7 +50,7 @@ function Buy() {
   };
 
   return (
-    <div className="w-screen min-h-screen flex flex-col md:flex-row bg-black">
+    <div className="max-w-screen min-h-screen flex flex-col md:flex-row bg-black">
       {/* Product Section */}
       <div className="w-full md:w-2/3 p-6 z-1">
         <h1 className="text-3xl font-bold mb-6 text-white">
@@ -91,7 +91,7 @@ function Buy() {
               </div>
             ))
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="absolute inset-10 flex items-center justify-center p-4">
               <h1 className="text-white text-xl sm:text-2xl md:text-3xl font-semibold">
                 No events for now :(
               </h1>
