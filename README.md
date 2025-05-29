@@ -1,68 +1,53 @@
-# 🛍️ Product Page (a weekend project)
 
-This is a minimal full-stack e-commerce product page built over a single weekend. It allows users to view photo products, add them to a cart, and make payments securely through Razorpay. The backend handles authentication, protected routes, and payment processing — all built with simplicity and performance in mind.
+![Screenshot 2025-05-26 214751](https://github.com/user-attachments/assets/4c5e9bc7-8953-4582-8a23-8d83dba840f7)
+
+# 🛍️ Attacus & Psyche Website (a bespoke event management platform for night walks)
+
+This is a minimal full-stack event platform built over a previous project (product page). It allows users to view events, add them to a cart, and make payments securely through Razorpay. The backend handles authentication, protected routes, and payment processing — all designed with simplicity, performance, and a hint of nocturnal elegance.
 
 ---
 
 ## ✨ Features
 
-- 🖼️ Beautiful product display (photographs for sale)
-- 🛒 Cart functionality
-- 💳 Razorpay payment integration
-- 🔒 JWT-based user authentication
-- 🔐 Password hashing using bcrypt
-- 🍪 Auth tokens stored in cookies
-- 🚫 Protected routes for checkout
-- 🌐 Fully responsive with Tailwind CSS
+* 🌌 Curated display of night walk events
+* 🛒 Cart functionality for selecting events to purchase
+* 💳 Seamless Razorpay payment integration
+* 🔒 JWT-based user authentication
+* 🔐 Secure password hashing using bcrypt
+* 🍪 Auth tokens stored in HTTP-only cookies
+* 🚫 Protected checkout routes
+* 📱 Fully responsive design with Tailwind CSS
 
 ---
 
 ## ⚙️ Technologies Used
 
 ### Frontend (Vite + React)
-- React
-- Tailwind CSS
-- Axios
-- React Router
+
+* React
+* Tailwind CSS
+* Axios
+* React Router
 
 ### Backend (Node + Express)
-- Express.js
-- CORS
-- dotenv
-- bcryptjs
-- jsonwebtoken (JWT)
-- cookie-parser
-- Razorpay Node SDK
+
+* Express.js
+* CORS
+* dotenv
+* bcryptjs
+* jsonwebtoken (JWT)
+* cookie-parser
+* Razorpay Node SDK
 
 ### Other Tools
-- Razorpay Dashboard for payments
-- Render for backend deployment
-- Vercel for frontend deployment
-- Cloudinary for hosting product images
 
----
-
-## 🚀 How It Was Built (In One Weekend?!)
-
-The goal was to challenge myself to build a working product store in just 48 hours — from authentication to checkout. I started with a basic React setup using Vite for speed, implemented the cart UI, and wired it to a simple Express backend. JWT and bcrypt were added for secure login. Finally, Razorpay was integrated and tested in dev mode.
-
----
-
-## 🧠 What I Learned
-
-- Integrating Razorpay with custom product metadata
-- Storing JWTs securely in HTTP-only cookies
-- Managing CORS properly across dev and prod
-- Deploying a full-stack app with Vercel + Render in record time
-- Keeping things minimal but functional
-
+* Razorpay Dashboard for payment processing
+* Render for backend deployment
+* Vercel for frontend deployment
+* Cloudinary for image hosting
 ---
 
 ## 📸 Live Demo
 
-[Frontend](https://product-page-git-main-mayurs-projects-8fbc2ff1.vercel.app/)  
-[Backend](https://product-page-pcoy.onrender.com)
-
----
-
-
+[Frontend](https://attacus-and-psyche.vercel.app)
+[Backend ( yet to be deployed )](https://your-backend-link.onrender.com)
