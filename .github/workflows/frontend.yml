@@ -1,0 +1,36 @@
+name: React Frontend CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  frontend-build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: Install dependencies
+        run: cd Frontend && npm ci
+
+      - name: Build React app
+        run: cd Frontend && npm run build
+
+      - name: Check formatting with Prettier
+        run: cd Frontend && npm run format:check

@@ -12,7 +12,7 @@ function Home() {
       <img
         src={stars}
         alt="Background stars"
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-30 z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-35 z-0"
       />
 
       {/* Main Content */}
@@ -63,7 +63,7 @@ function Home() {
       <img
         src={pitviper}
         alt="Pit Viper"
-        className="absolute bottom-5 right-5 w-50 sm:w-100 opacity-36"
+        className="absolute bottom-5 right-5 w-50 sm:w-100 opacity-70"
       />
     </section>
   );

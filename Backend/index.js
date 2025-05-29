@@ -4,6 +4,7 @@ const connectDB = require("./db");
 const router = require("./routes/orderRoutes");
 const accessrouter = require("./routes/AccessRoutes");
 const cookieParser = require("cookie-parser");
+const Eventrouter = require("./routes/EventRoutes");
 
 require("dotenv").config();
 
@@ -28,6 +29,7 @@ app.use(cookieParser());
 
 app.use("/api", router);
 app.use("/access", accessrouter);
+app.use("/Events", Eventrouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

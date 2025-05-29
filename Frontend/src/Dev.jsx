@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Dev() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("ALL");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -19,6 +22,18 @@ function Dev() {
     fetchdata();
   }, []);
 
+  const handleLogout = () => {
+    axios
+      .post(
+        "https://product-page-pcoy.onrender.com/access/logout",
+        {},
+        { withCredentials: true },
+      )
+      .then(() => {
+        navigate("/");
+      });
+  };
+
   return (
     <>
       <div className="flex flex-col items-center absolute right-5 top-20">
@@ -33,6 +48,15 @@ function Dev() {
           <option value="SHIPPED">Shipped</option>
         </select>
       </div>
+
+      <button
+        className="absolute right-5 top-34 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded shadow transition duration-150"
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        Logout
+      </button>
 
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Orders</h1>

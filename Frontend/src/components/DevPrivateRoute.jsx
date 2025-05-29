@@ -7,13 +7,11 @@ const DevPrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const response = await axios.get(
-          "https://product-page-pcoy.onrender.com/access/protected",
+          "http://localhost:3000/access/protected",
           {
             withCredentials: true, // Send cookies with the request
           },
@@ -38,13 +36,10 @@ const DevPrivateRoute = ({ children }) => {
     e.preventDefault();
     try {
       // Send the entered password to the backend for verification
-      const response = await axios.post(
-        "https://product-page-pcoy.onrender.com/access/login",
-        {
-          User: user.User, // You can use a static user or make it dynamic if needed
-          Password: user.Password,
-        },
-      );
+      const response = await axios.post("http://localhost:3000/access/login", {
+        User: user.User, // You can use a static user or make it dynamic if needed
+        Password: user.Password,
+      });
 
       if (response.data.Msg === "Password matched, access granted!") {
         setIsAuthenticated(true);
@@ -55,18 +50,6 @@ const DevPrivateRoute = ({ children }) => {
       console.error(err);
       setIsError(true);
     }
-  };
-
-  const handleLogout = () => {
-    axios
-      .post(
-        "https://product-page-pcoy.onrender.com/access/logout",
-        {},
-        { withCredentials: true },
-      )
-      .then(() => {
-        navigate("/");
-      });
   };
 
   if (isAuthenticated) {
