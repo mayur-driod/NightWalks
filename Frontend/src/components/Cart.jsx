@@ -95,7 +95,7 @@ const Cart = ({ cart, setCart }) => {
               >
                 <div className="flex items-center gap-4">
                   <img
-                    src={item.pic || "https://via.placeholder.com/50"}
+                    src={item.image || "https://via.placeholder.com/50"}
                     alt={item.name}
                     className="w-12 h-12 object-cover rounded"
                   />

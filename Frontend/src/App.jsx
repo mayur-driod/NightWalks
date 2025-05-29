@@ -22,17 +22,17 @@ function App() {
         <Route
           path="/devs"
           element={
-            <DevPrivateRoute>
-              <DevDashboard />
-            </DevPrivateRoute>
+            //<DevPrivateRoute>
+            <DevDashboard />
+            //</DevPrivateRoute>
           }
         />
         <Route
           path="/orders"
           element={
-            <DevPrivateRoute>
-              <Dev />
-            </DevPrivateRoute>
+            //<DevPrivateRoute>
+            <Dev />
+            //</DevPrivateRoute>
           }
         />
       </Routes>

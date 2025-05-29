@@ -2,10 +2,19 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoReload } from "react-icons/io5";
 
 function DevDashboard() {
   // Dummy live events data
   const [liveEvents, setLiveEvents] = useState([]);
+
+  const getEvents = async () => {
+    const events = await axios.get("http://localhost:3000/Events/Fetch");
+    if (!events) {
+      return console.log("No events found!");
+    }
+    setLiveEvents(events.data);
+  };
 
   useEffect(() => {
     const getEvents = async () => {
@@ -59,6 +68,7 @@ function DevDashboard() {
 
       console.log("✅ Upload success:", res.data);
       setForm({ name: "", date: "", time: "", price: 0, picture: null });
+      alert("Uploaded successfully please refresh the live events panel!");
     } catch (err) {
       console.error("❌ Upload failed:", err.response?.data || err.message);
     }
@@ -77,6 +87,7 @@ function DevDashboard() {
         `http://localhost:3000/Events/Delete/${id}`,
       );
       console.log(del);
+      alert("deleted event! please hit refresh on the live events panel");
     } catch (err) {
       console.log("There was an error", err);
     }
@@ -106,7 +117,17 @@ function DevDashboard() {
       </button>
       {/* Sidepanel */}
       <aside className="w-64 bg-white border-r p-6">
-        <h2 className="text-xl font-bold mb-4">Live Events</h2>
+        <div className="flex flex-row justify-between">
+          <h2 className="text-xl font-bold mb-4">Live Events</h2>
+          <button
+            onClick={() => {
+              getEvents();
+            }}
+            className="mb-4"
+          >
+            {<IoReload />}
+          </button>
+        </div>
         <ul>
           {liveEvents.map((event) => (
             <li
