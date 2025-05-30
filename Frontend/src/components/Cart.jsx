@@ -10,8 +10,9 @@ const Cart = ({ cart, setCart }) => {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handlePayment = async () => {
+  const handlePayment = async (people) => {
     if (!contact) return alert("Please enter your phone number");
+    if (!people) return alert("Please enter participants details");
     if (!email) return alert("Please enter your email");
     if (!isValidEmail(email)) return alert("Invalid email format");
     if (!isValidPhone(contact)) return alert("Invalid Phone number");
@@ -21,6 +22,7 @@ const Cart = ({ cart, setCart }) => {
       const { data } = await axios.post("http://localhost:3000/api/create", {
         contact,
         email,
+        people,
         address,
         items: cart,
         totalAmount: total,
@@ -35,7 +37,7 @@ const Cart = ({ cart, setCart }) => {
         order_id: data.orderId,
         handler: async (response) => {
           const verifyRes = await axios.post(
-            "http:localhost:3000/api/verify",
+            "http://localhost:3000/api/verify",
             response,
           );
           alert("Payment successful! 🎉 Order ID: " + verifyRes.data.order._id);
@@ -45,7 +47,6 @@ const Cart = ({ cart, setCart }) => {
         prefill: { contact },
         theme: { color: "#0f766e" },
       };
-
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
@@ -77,6 +78,11 @@ const Cart = ({ cart, setCart }) => {
   const isValidEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    setShowBooking(true);
   };
 
   return (
@@ -129,38 +135,44 @@ const Cart = ({ cart, setCart }) => {
             Total: ₹{total}
           </div>
 
-          <label className="text-white block mt-4">Contact Number</label>
-          <input
-            type="tel"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-            placeholder="123456789"
-            className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-2"
-          />
-
-          <label className="text-white block mt-4">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="mayur@example.com"
-            className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-2"
-          />
-
-          <label className="text-white block mt-4">Address</label>
-          <textarea
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="w-full p-2 h-20 border bg-gray-50 border-gray-300 rounded-xs"
-            placeholder="Your full address..."
-          />
-
-          <button
-            onClick={() => setShowBooking(true)}
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded mt-3 w-full transition"
+          <form
+            onSubmit={(e) => {
+              submit(e);
+            }}
           >
-            Book Now
-          </button>
+            <label className="text-white block mt-4">Contact Number</label>
+            <input
+              type="tel"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              placeholder="123456789"
+              className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-2"
+            />
+
+            <label className="text-white block mt-4">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="mayur@example.com"
+              className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-2"
+            />
+
+            <label className="text-white block mt-4">Address</label>
+            <textarea
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="w-full p-2 h-20 border bg-gray-50 border-gray-300 rounded-xs"
+              placeholder="Your full address..."
+            />
+
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded mt-3 w-full transition"
+            >
+              Book Now
+            </button>
+          </form>
         </>
       )}
 

@@ -1,5 +1,18 @@
 const mongoose = require("mongoose");
 
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+    min: 1,
+  },
+});
+
 const orderSchema = new mongoose.Schema({
   contact: {
     type: String,
@@ -13,6 +26,13 @@ const orderSchema = new mongoose.Schema({
     trim: true,
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
   },
+  people: {
+    type: [personSchema],
+    validate: [
+      (val) => val.length > 0,
+      "At least one participant is required.",
+    ],
+  },
   address: {
     type: String,
     required: true,
@@ -20,7 +40,7 @@ const orderSchema = new mongoose.Schema({
   },
   items: [
     {
-      id: {
+      _id: {
         type: String,
         required: true,
       },
