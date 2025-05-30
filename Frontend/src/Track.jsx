@@ -1,21 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "./components/ProgressBar";
+import stars from "./assets/stars-1654074.jpg";
 
 function Track() {
   const [data, setData] = useState([]);
   const [contactInput, setContactInput] = useState("");
   const [filter, setFilter] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(
-          "https://product-page-pcoy.onrender.com/api/getall",
-        );
+        const res = await axios.get("http://localhost:3000/api/getall");
         setData(res.data.data);
       } catch (err) {
+        setError("Failed to load orders.");
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchdata();
@@ -26,94 +30,105 @@ function Track() {
     setFilter(contactInput.trim());
   };
 
+  const filteredData = data.filter((item) => item.contact === filter);
+
   return (
-    <div className="max-screen min-h-screen mx-auto px-4 py-8 bg-black opacity-90">
-      <h1 className="text-2xl font-bold mb-6 text-center text-white">
-        Track Your Order
-      </h1>
+    <>
+      <div className="min-h-screen px-4 py-8 bg-[rgba(0,0,0,0.8)] text-white z-1">
+        <h1 className="text-3xl font-bold mb-8 mt-10 text-center">
+          Track Your Order
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col sm:flex-row gap-4 mb-8 justify-center"
-      >
-        <input
-          type="tel"
-          placeholder="Enter your phone number"
-          value={contactInput}
-          onChange={(e) => setContactInput(e.target.value)}
-          className="flex-1 px-4 py-2 border max-w-4xl bg-gray-100 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-        <button
-          type="submit"
-          className="bg-teal-600 text-white px-6 py-2 rounded-md hover:bg-teal-700 transition duration-200"
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-10"
         >
-          Check Status
-        </button>
-      </form>
+          <input
+            type="tel"
+            placeholder="Enter your phone number"
+            value={contactInput}
+            onChange={(e) => setContactInput(e.target.value)}
+            className="w-full max-w-lg px-4 py-2 rounded border border-gray-300 shadow-sm bg-white text-black focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+          <button
+            type="submit"
+            className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded transition duration-200"
+          >
+            Check Status
+          </button>
+        </form>
 
-      <div className="flex justify-center mb-6">
-        {filter !== "" && (
-          <div className="space-y-6 max-w-6xl">
-            {data
-              .filter((item) => item.contact === filter)
-              .map((item) => (
-                <div
-                  key={item._id}
-                  className="bg-white border border-gray-200 shadow-sm rounded-lg p-6"
-                >
-                  <ProgressBar status={item.status} />
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl space-y-6">
+            {loading && (
+              <p className="text-center text-gray-400">Loading orders...</p>
+            )}
+            {error && <p className="text-center text-red-400">{error}</p>}
 
-                  <div className="mb-4">
-                    <p>
-                      <span className="font-semibold">Contact:</span>{" "}
-                      {item.contact}
-                    </p>
-                    <p className="overflow-x-scroll">
-                      <span className="font-semibold">Address:</span>{" "}
-                      {item.address}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Status:</span>{" "}
-                      <span
-                        className={`px-2 py-1 rounded text-white text-sm ${
-                          item.status === "PAID"
-                            ? "bg-green-600"
-                            : item.status === "SHIPPED"
-                              ? "bg-blue-600"
-                              : "bg-yellow-500"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
-                    </p>
-                    <p>
-                      <span className="font-semibold">Total:</span> ₹
-                      {item.totalAmount}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold mb-2">Items:</h3>
-                    <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                      {item.items.map((i, idx) => (
-                        <li key={idx}>
-                          {i.name} × {i.quantity} — ₹{i.price * i.quantity}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-
-            {data.filter((item) => item.contact === filter).length === 0 && (
-              <p className="text-center text-gray-500">
+            {filter && !loading && filteredData.length === 0 && (
+              <p className="text-center text-gray-400">
                 No orders found for this number.
               </p>
             )}
+
+            {filteredData.map((item) => (
+              <div
+                key={item._id}
+                className="bg-white text-black p-6 rounded-lg shadow border border-gray-200"
+              >
+                <ProgressBar status={item.status} />
+
+                <div className="mb-4 space-y-1">
+                  <p>
+                    <span className="font-semibold">Contact:</span>{" "}
+                    {item.contact}
+                  </p>
+                  <p className="overflow-x-auto">
+                    <span className="font-semibold">Address:</span>{" "}
+                    {item.address}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Status:</span>{" "}
+                    <span
+                      className={`inline-block px-2 py-1 text-sm rounded text-white font-medium ${
+                        item.status === "PAID"
+                          ? "bg-green-600"
+                          : item.status === "CONFIRMED"
+                            ? "bg-blue-600"
+                            : "bg-yellow-500"
+                      }`}
+                    >
+                      {item.status}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="font-semibold">Total:</span> ₹
+                    {item.totalAmount}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-2">Items</h3>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                    {item.items.map((i, idx) => (
+                      <li key={idx}>
+                        {i.name} × {i.quantity} — ₹{i.price * i.quantity}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
-    </div>
+
+      <img
+        src={stars}
+        alt="Background stars"
+        className="absolute top-15 left-0 w-full h-full object-cover -z-10"
+      />
+    </>
   );
 }
 

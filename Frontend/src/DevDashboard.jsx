@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoReload } from "react-icons/io5";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 function DevDashboard() {
   // Dummy live events data
   const [liveEvents, setLiveEvents] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const getEvents = async () => {
     const events = await axios.get("http://localhost:3000/Events/Fetch");
@@ -25,6 +27,18 @@ function DevDashboard() {
       setLiveEvents(events.data);
     };
     getEvents();
+  }, []);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/getall");
+        setOrders(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchdata();
   }, []);
 
   const [form, setForm] = useState({
@@ -80,16 +94,24 @@ function DevDashboard() {
 
   // Disable (retire) event by id
   const handleDisableEvent = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this event?",
+    );
+
+    if (!confirmed) return;
+
     setLiveEvents((prev) => prev.filter((event) => event.id !== id));
     console.log(id);
+
     try {
       const del = await axios.delete(
         `http://localhost:3000/Events/Delete/${id}`,
       );
       console.log(del);
-      alert("deleted event! please hit refresh on the live events panel");
+      alert("Deleted event! Please hit refresh on the live events panel.");
     } catch (err) {
       console.log("There was an error", err);
+      alert("Failed to delete the event.");
     }
   };
 
@@ -166,28 +188,57 @@ function DevDashboard() {
             <h2 className="text-lg font-semibold mb-4">Orders</h2>
             {/* Orders Preview */}
             <div className="mb-4">
-              {/* Dummy preview data */}
               <ul>
-                <li className="flex items-center justify-between py-1 border-b text-sm">
-                  <span>Order #101</span>
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600">
-                    Approve
-                  </button>
-                </li>
-                <li className="flex items-center justify-between py-1 border-b text-sm">
-                  <span>Order #102</span>
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600">
-                    Approve
-                  </button>
-                </li>
-                <li className="flex items-center justify-between py-1 text-sm">
-                  <span>Order #103</span>
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600">
-                    Approve
-                  </button>
-                </li>
+                {orders.length > 0 ? (
+                  orders
+                    .filter((item) => item.status === "PAID")
+                    .map((item) => (
+                      <li
+                        key={item._id}
+                        className="flex items-center justify-between py-1 border-b text-sm"
+                      >
+                        <span>{item.email}</span>
+                        <div className="w-full h-full flex flex-row justify-center items-end gap-2">
+                          <FaPeopleGroup className="text-3xl" />
+                          <p className="text-xl">{item.people.length}</p>
+                        </div>
+                        <button
+                          onClick={async () => {
+                            const confirmed = window.confirm(
+                              "Are you sure you want to Approve this user?",
+                            );
+                            if (!confirmed) return;
+                            const newStatus = "CONFIRMED";
+                            const curID = item._id;
+                            try {
+                              await axios.put(
+                                `http://localhost:3000/api/update-status/${curID}`,
+                                { status: newStatus },
+                              );
+                              setOrders((prev) =>
+                                prev.map((order) =>
+                                  order._id === curID
+                                    ? { ...order, status: newStatus }
+                                    : order,
+                                ),
+                              );
+                            } catch (err) {
+                              console.error(err);
+                              alert("Failed to update status");
+                            }
+                          }}
+                          className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600"
+                        >
+                          Approve
+                        </button>
+                      </li>
+                    ))
+                ) : (
+                  <></>
+                )}
               </ul>
             </div>
+
             <button
               className="mt-auto bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
               onClick={handleOrdersClick}

@@ -23,15 +23,7 @@ function Booking({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handlepayment();
-    console.log({
-      contact,
-      email,
-      address,
-      items,
-      totalAmount,
-      people,
-    });
+    handlepayment(people);
   };
 
   // Calculate starting indexes for each item

@@ -9,7 +9,7 @@ const razorpay = new Razorpay({
 });
 
 createOrder = async (req, res) => {
-  const { contact, email, address, items, totalAmount } = req.body;
+  const { contact, email, people, address, items, totalAmount } = req.body;
   try {
     const options = {
       amount: totalAmount * 100, // INR to paisa
@@ -18,17 +18,19 @@ createOrder = async (req, res) => {
     };
 
     const razorpayOrder = await razorpay.orders.create(options);
+    console.log(razorpayOrder);
 
     const newOrder = await Order.create({
       contact,
       email,
+      people,
       address,
       items,
       totalAmount,
       razorpayOrderId: razorpayOrder.id,
     });
 
-    res.json({
+    res.status(201).json({
       orderId: razorpayOrder.id,
       amount: razorpayOrder.amount,
       currency: razorpayOrder.currency,
@@ -76,7 +78,7 @@ const updateStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    const validStatuses = ["PENDING", "PAID", "SHIPPED"];
+    const validStatuses = ["PENDING", "PAID", "CONFIRMED"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ msg: "Invalid status" });
     }

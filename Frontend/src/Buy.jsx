@@ -60,7 +60,7 @@ function Buy() {
           {products.length > 0 ? (
             products.map((event) => (
               <div
-                key={event.id}
+                key={event._id}
                 className="flex flex-col bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:scale-[1.02] transition duration-300"
               >
                 <img
