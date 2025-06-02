@@ -58,12 +58,12 @@ function Home() {
       <img
         src={chameleon}
         alt="Chameleon"
-        className="absolute top-5 left-5 w-50 sm:w-100 opacity-40"
+        className="absolute top-5 left-5 w-80 sm:w-100 opacity-70"
       />
       <img
         src={pitviper}
         alt="Pit Viper"
-        className="absolute bottom-5 right-5 w-50 sm:w-100 opacity-70"
+        className="absolute bottom-5 right-5 w-80 sm:w-100 opacity-70"
       />
     </section>
   );

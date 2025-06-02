@@ -34,7 +34,7 @@ function Track() {
 
   return (
     <>
-      <div className="min-h-screen px-4 py-8 bg-[rgba(0,0,0,0.8)] text-white z-1">
+      <div className="min-h-screen px-4 py-8 bg-[rgba(0,0,0,0.7)] text-white z-1">
         <h1 className="text-3xl font-bold mb-8 mt-10 text-center">
           Track Your Order
         </h1>
@@ -71,63 +71,64 @@ function Track() {
               </p>
             )}
 
-            {filteredData.map((item) => (
-              <div
-                key={item._id}
-                className="bg-white text-black p-6 rounded-lg shadow border border-gray-200"
-              >
-                <ProgressBar status={item.status} />
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6">
+              {filteredData.map((item) => (
+                <div
+                  key={item._id}
+                  className="bg-white text-black p-6 rounded-lg shadow border border-gray-200"
+                >
+                  <ProgressBar status={item.status} />
 
-                <div className="mb-4 space-y-1">
-                  <p>
-                    <span className="font-semibold">Contact:</span>{" "}
-                    {item.contact}
-                  </p>
-                  <p className="overflow-x-auto">
-                    <span className="font-semibold">Address:</span>{" "}
-                    {item.address}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Status:</span>{" "}
-                    <span
-                      className={`inline-block px-2 py-1 text-sm rounded text-white font-medium ${
-                        item.status === "PAID"
-                          ? "bg-green-600"
-                          : item.status === "CONFIRMED"
-                            ? "bg-blue-600"
-                            : "bg-yellow-500"
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="font-semibold">Total:</span> ₹
-                    {item.totalAmount}
-                  </p>
-                </div>
+                  <div className="mb-4 space-y-1">
+                    <p>
+                      <span className="font-semibold">Contact:</span>{" "}
+                      {item.contact}
+                    </p>
+                    <p className="overflow-x-auto">
+                      <span className="font-semibold">Address:</span>{" "}
+                      {item.address}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Status:</span>{" "}
+                      <span
+                        className={`inline-block px-2 py-1 text-sm rounded text-white font-medium ${
+                          item.status === "PAID"
+                            ? "bg-green-600"
+                            : item.status === "CONFIRMED"
+                              ? "bg-blue-600"
+                              : "bg-yellow-500"
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-semibold">Total:</span> ₹
+                      {item.totalAmount}
+                    </p>
+                  </div>
 
-                <div>
-                  <h3 className="font-semibold mb-2">Items</h3>
-                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                    {item.items.map((i, idx) => (
-                      <li key={idx}>
-                        {i.name} × {i.quantity} — ₹{i.price * i.quantity}
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="font-semibold mb-2">Items</h3>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                      {item.items.map((i, idx) => (
+                        <li key={idx}>
+                          {i.name} × {i.quantity} — ₹{i.price * i.quantity}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <img
-        src={stars}
-        alt="Background stars"
-        className="absolute top-15 left-0 w-full h-full object-cover -z-10"
-      />
+      <div
+        className="fixed inset-0 bg-cover -z-10"
+        style={{ backgroundImage: `url(${stars})` }}
+      ></div>
     </>
   );
 }

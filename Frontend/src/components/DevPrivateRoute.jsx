@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import stars from "../assets/stars-1654074.jpg";
 
 const DevPrivateRoute = ({ children }) => {
   const [user, setuser] = useState({ User: "", Password: "" });
@@ -19,7 +20,7 @@ const DevPrivateRoute = ({ children }) => {
             withCredentials: true, // Send cookies with the request
           },
         );
-        if (response === 200) {
+        if (response.status === 200) {
           setIsAuthenticated(true);
         }
         console.log(response);
@@ -61,7 +62,10 @@ const DevPrivateRoute = ({ children }) => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex flex-col gap-10 justify-center items-center min-h-screen">
+      <h1 className="text-red-500 text-2xl font-bold tracking-wider animate-pulse">
+        🚫 Restricted Zone: Authorized Personnel Only!
+      </h1>
       <form
         onSubmit={handlePasswordSubmit}
         className="bg-white p-6 rounded shadow-md w-[90%] max-w-sm"
@@ -107,6 +111,10 @@ const DevPrivateRoute = ({ children }) => {
           Access
         </button>
       </form>
+      <div
+        className="fixed bg-(rgba[0,0,0,0.5]) inset-0 bg-cover -z-10"
+        style={{ backgroundImage: `url(${stars})` }}
+      ></div>
     </div>
   );
 };
