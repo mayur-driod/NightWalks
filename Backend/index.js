@@ -12,7 +12,7 @@ const app = express();
 const url = process.env.MONGO_URI;
 
 const allowedOrigins = [
-  "https://product-page-git-main-mayurs-projects-8fbc2ff1.vercel.app", // vercel
+  "https://attacus-and-psyche.vercel.app", // vercel
   "http://localhost:3000",
   "http://localhost:5173", //local
 ];

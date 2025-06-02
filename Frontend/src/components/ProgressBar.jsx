@@ -1,5 +1,5 @@
 import { FaShoppingCart, FaCreditCard, FaWalking } from "react-icons/fa";
-import { FaRegMoon } from "react-icons/fa"; // for visual variety if needed
+import { FaRegMoon } from "react-icons/fa";
 
 const ProgressBar = ({ status }) => {
   const steps = [
@@ -8,18 +8,19 @@ const ProgressBar = ({ status }) => {
     {
       id: "CONFIRMED",
       label: "Confirmed Night Walk",
-      icon: <FaWalking />, // or combine with FaRegMoon visually in future
+      icon: <FaWalking />,
     },
   ];
 
   const currentStep = steps.findIndex((step) => step.id === status);
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="flex flex-col sm:flex-row items-center gap-6 max-w-4xl w-full mb-10 px-4">
+    <div className="w-full flex justify-center">
+      <div className="flex flex-col sm:flex-row items-center sm:justify-between w-full max-w-4xl gap-6 sm:gap-0 px-4 mb-10">
         {steps.map((step, idx) => (
-          <div key={step.id} className="flex items-center w-full relative">
-            <div className="flex flex-col items-center w-full text-center">
+          <div key={step.id} className="flex items-center sm:flex-1">
+            {/* Icon + Label */}
+            <div className="flex flex-col items-center text-center sm:min-w-[120px]">
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-md transition-all duration-300 ${
                   idx <= currentStep ? "bg-teal-600" : "bg-gray-300"
@@ -30,7 +31,7 @@ const ProgressBar = ({ status }) => {
                 {step.icon}
               </div>
               <span
-                className={`text-sm mt-2 font-semibold transition-colors duration-300 ${
+                className={`text-sm mt-2 font-semibold ${
                   idx <= currentStep ? "text-teal-700" : "text-gray-400"
                 }`}
               >
@@ -38,14 +39,22 @@ const ProgressBar = ({ status }) => {
               </span>
             </div>
 
+            {/* Connection Lines */}
             {idx < steps.length - 1 && (
-              <div className="absolute top-6 left-full w-full h-1">
+              <div className="hidden sm:block flex-1 h-1 bg-gray-300 mx-2 relative">
                 <div
-                  className={`h-full w-full transition-all duration-300 ${
-                    idx < currentStep ? "bg-teal-600" : "bg-gray-300"
+                  className={`absolute top-0 left-0 h-1 transition-all duration-300 ${
+                    idx < currentStep
+                      ? "bg-teal-600 w-full"
+                      : "bg-gray-300 w-full"
                   }`}
                 />
               </div>
+            )}
+
+            {/* Vertical Line for Mobile */}
+            {idx < steps.length - 1 && (
+              <div className="sm:hidden h-6 border-l-2 mx-auto border-gray-300" />
             )}
           </div>
         ))}

@@ -48,16 +48,17 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md z-1">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-          Get in Touch
+    <div className="flex items-center justify-center min-h-screen bg-black px-4 relative">
+      <div className="w-full max-w-lg bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-lg z-10 border border-gray-200">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center tracking-wide">
+          📧 Get in Touch
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
               Name
             </label>
@@ -68,14 +69,14 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 transition shadow-sm bg-white"
             />
           </div>
 
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
               Email
             </label>
@@ -86,14 +87,14 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 transition shadow-sm bg-white"
             />
           </div>
 
           <div>
             <label
               htmlFor="organization"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
               Organization
             </label>
@@ -103,14 +104,14 @@ const Contact = () => {
               name="organization"
               value={formData.organization}
               onChange={handleChange}
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 transition shadow-sm bg-white"
             />
           </div>
 
           <div>
             <label
               htmlFor="subject"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
               Subject
             </label>
@@ -121,14 +122,14 @@ const Contact = () => {
               value={formData.subject}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 transition shadow-sm bg-white"
             />
           </div>
 
           <div>
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
               Message
             </label>
@@ -139,15 +140,15 @@ const Contact = () => {
               onChange={handleChange}
               required
               rows="4"
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 transition shadow-sm bg-white resize-none"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition"
+            className="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md transition transform hover:scale-[1.02]"
           >
-            Send
+            🚀 Send Message
           </button>
         </form>
 
@@ -159,7 +160,7 @@ const Contact = () => {
       <img
         src={stars}
         alt="Background stars"
-        className="absolute top-15 left-0 w-full h-full object-cover opacity-30 z-0"
+        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
       />
     </div>
   );
