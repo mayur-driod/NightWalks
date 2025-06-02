@@ -13,7 +13,9 @@ function Track() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/getall");
+        const res = await axios.get(
+          "https://nightwalks.onrender.com/api/getall",
+        );
         setData(res.data.data);
       } catch (err) {
         setError("Failed to load orders.");

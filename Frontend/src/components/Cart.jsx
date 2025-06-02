@@ -19,14 +19,17 @@ const Cart = ({ cart, setCart }) => {
     if (!isValidAddress(address)) return alert("Invalid address");
 
     try {
-      const { data } = await axios.post("http://localhost:3000/api/create", {
-        contact,
-        email,
-        people,
-        address,
-        items: cart,
-        totalAmount: total,
-      });
+      const { data } = await axios.post(
+        "https://nightwalks.onrender.com/api/create",
+        {
+          contact,
+          email,
+          people,
+          address,
+          items: cart,
+          totalAmount: total,
+        },
+      );
 
       const options = {
         key: data.key,
@@ -37,7 +40,7 @@ const Cart = ({ cart, setCart }) => {
         order_id: data.orderId,
         handler: async (response) => {
           const verifyRes = await axios.post(
-            "http://localhost:3000/api/verify",
+            "https://nightwalks.onrender.com/api/verify",
             response,
           );
           alert("Payment successful! 🎉 Order ID: " + verifyRes.data.order._id);
