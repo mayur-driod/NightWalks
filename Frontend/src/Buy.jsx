@@ -16,9 +16,7 @@ function Buy() {
 
   useEffect(() => {
     const getEvents = async () => {
-      const events = await axios.get(
-        "http://localhost:3000/Events/Fetch",
-      );
+      const events = await axios.get("http://localhost:3000/Events/Fetch");
       if (!events) {
         return console.log("No events found!");
       }

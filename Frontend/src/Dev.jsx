@@ -12,9 +12,7 @@ function Dev() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3000/api/getall",
-        );
+        const res = await axios.get("http://localhost:3000/api/getall");
         setData(res.data.data);
       } catch (err) {
         console.log(err);

@@ -11,9 +11,7 @@ function DevDashboard() {
   const [orders, setOrders] = useState([]);
 
   const getEvents = async () => {
-    const events = await axios.get(
-      "http://localhost:3000/Events/Fetch",
-    );
+    const events = await axios.get("http://localhost:3000/Events/Fetch");
     if (!events) {
       return console.log("No events found!");
     }
@@ -22,9 +20,7 @@ function DevDashboard() {
 
   useEffect(() => {
     const getEvents = async () => {
-      const events = await axios.get(
-        "http://localhost:3000/Events/Fetch",
-      );
+      const events = await axios.get("http://localhost:3000/Events/Fetch");
       if (!events) {
         return console.log("No events found!");
       }
@@ -36,9 +32,7 @@ function DevDashboard() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3000/api/getall",
-        );
+        const res = await axios.get("http://localhost:3000/api/getall");
         setOrders(res.data.data);
       } catch (err) {
         console.log(err);
