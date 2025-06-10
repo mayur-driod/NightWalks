@@ -5,10 +5,13 @@ const {
   verifyPayment,
   getall,
   updateStatus,
+  sendemail,
 } = require("../controllers/orderController");
 
 router.post("/create", createOrder);
 router.post("/verify", verifyPayment);
+
+router.post("/sendemail", sendemail);
 
 router.get("/getall", getall);
 

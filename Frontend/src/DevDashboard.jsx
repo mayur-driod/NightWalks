@@ -11,9 +11,7 @@ function DevDashboard() {
   const [orders, setOrders] = useState([]);
 
   const getEvents = async () => {
-    const events = await axios.get(
-      "https://nightwalks.onrender.com/Events/Fetch",
-    );
+    const events = await axios.get("http://localhost:3000/Events/Fetch");
     if (!events) {
       return console.log("No events found!");
     }
@@ -22,9 +20,7 @@ function DevDashboard() {
 
   useEffect(() => {
     const getEvents = async () => {
-      const events = await axios.get(
-        "https://nightwalks.onrender.com/Events/Fetch",
-      );
+      const events = await axios.get("http://localhost:3000/Events/Fetch");
       if (!events) {
         return console.log("No events found!");
       }
@@ -36,9 +32,7 @@ function DevDashboard() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(
-          "https://nightwalks.onrender.com/api/getall",
-        );
+        const res = await axios.get("http://localhost:3000/api/getall");
         setOrders(res.data.data);
       } catch (err) {
         console.log(err);
@@ -77,7 +71,7 @@ function DevDashboard() {
 
     try {
       const res = await axios.post(
-        "https://nightwalks.onrender.com/Events/Create",
+        "http://localhost:3000/Events/Create",
         formData,
         {
           headers: {
@@ -111,7 +105,7 @@ function DevDashboard() {
 
     try {
       const del = await axios.delete(
-        `https://nightwalks.onrender.com/Events/Delete/${id}`,
+        `http://localhost:3000/Events/Delete/${id}`,
       );
       console.log(del);
       alert("Deleted event! Please hit refresh on the live events panel.");
@@ -124,7 +118,7 @@ function DevDashboard() {
   const handleLogout = () => {
     axios
       .post(
-        "https://nightwalks.onrender.com/access/logout",
+        "http://localhost:3000/access/logout",
         {},
         { withCredentials: true },
       )
@@ -218,7 +212,7 @@ function DevDashboard() {
                             const curID = item._id;
                             try {
                               await axios.put(
-                                `https://nightwalks.onrender.com/api/update-status/${curID}`,
+                                `http://localhost:3000/api/update-status/${curID}`,
                                 { status: newStatus },
                               );
                               setOrders((prev) =>

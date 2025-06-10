@@ -12,9 +12,7 @@ function Dev() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(
-          "https://nightwalks.onrender.com/api/getall",
-        );
+        const res = await axios.get("http://localhost:3000/api/getall");
         setData(res.data.data);
       } catch (err) {
         console.log(err);
@@ -26,7 +24,7 @@ function Dev() {
   const handleLogout = () => {
     axios
       .post(
-        "https://nightwalks.onrender.com/access/logout",
+        "http://localhost:3000/access/logout",
         {},
         { withCredentials: true },
       )
@@ -122,7 +120,7 @@ function Dev() {
                       const newStatus = e.target.value;
                       try {
                         await axios.put(
-                          `https://nightwalks.onrender.com/api/update-status/${item._id}`,
+                          `http://localhost:3000/api/update-status/${item._id}`,
                           { status: newStatus },
                         );
                         setData((prev) =>
