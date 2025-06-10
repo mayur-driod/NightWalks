@@ -79,6 +79,8 @@ const updateStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
+    console.log(id);
+
     const validStatuses = ["PENDING", "PAID", "CONFIRMED"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ msg: "Invalid status" });
@@ -92,7 +94,10 @@ const updateStatus = async (req, res) => {
 
     if (!updated) return res.status(404).json({ msg: "Order not found" });
 
-    res.status(200).json({ msg: "Status updated", order: updated });
+    const ord = await Order.findById(id);
+    const sent = await sendConfirmationEmail(ord.email);
+
+    res.status(200).json({ msg: "Status updated", order: updated, mail: sent });
   } catch (err) {
     res.status(500).json({ msg: "Server error", error: err.message });
   }

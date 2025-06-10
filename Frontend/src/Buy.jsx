@@ -17,7 +17,7 @@ function Buy() {
   useEffect(() => {
     const getEvents = async () => {
       const events = await axios.get(
-        "https://nightwalks.onrender.com/Events/Fetch",
+        "http://localhost:3000/Events/Fetch",
       );
       if (!events) {
         return console.log("No events found!");

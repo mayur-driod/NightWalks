@@ -14,7 +14,7 @@ function Track() {
     const fetchdata = async () => {
       try {
         const res = await axios.get(
-          "https://nightwalks.onrender.com/api/getall",
+          "http://localhost:3000/api/getall",
         );
         setData(res.data.data);
       } catch (err) {
