@@ -1,13 +1,13 @@
-name: Keep Render Alive
+# name: Keep Render Alive
 
-on:
-  schedule:
-    - cron: "* * * * *" # Every 5 minutes
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: "* * * * *" # Every 5 minutes
+#   workflow_dispatch:
 
-jobs:
-  ping:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Curl Ping
-        run: curl https://nightwalks.onrender.com/health
+# jobs:
+#   ping:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Curl Ping
+#         run: curl https://nightwalks.onrender.com/health
