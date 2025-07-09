@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Curl Ping
-        run: curl -s https://nightwalks.onrender.com/health
+        run: curl https://nightwalks.onrender.com/health
