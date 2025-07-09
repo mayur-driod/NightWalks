@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/health", (req, res) => {
+  console.log("Pinged at", new Date().toISOString());
   res.status(200).json({ message: "Server is healthy" });
 }); // this is used for keeping the server alive
 
