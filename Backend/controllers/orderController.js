@@ -1,6 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const Order = require("../models/Order");
+const sendConfirmationEmail = require("../utils/mailer");
 require("dotenv").config();
 
 const razorpay = new Razorpay({
@@ -78,6 +79,8 @@ const updateStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
+    console.log(id);
+
     const validStatuses = ["PENDING", "PAID", "CONFIRMED"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ msg: "Invalid status" });
@@ -91,10 +94,32 @@ const updateStatus = async (req, res) => {
 
     if (!updated) return res.status(404).json({ msg: "Order not found" });
 
-    res.status(200).json({ msg: "Status updated", order: updated });
+    const ord = await Order.findById(id);
+    const sent = await sendConfirmationEmail(ord.email);
+
+    res.status(200).json({ msg: "Status updated", order: updated, mail: sent });
   } catch (err) {
     res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
 
-module.exports = { verifyPayment, createOrder, getall, updateStatus };
+const sendemail = async (req, res) => {
+  const email = req.body.email;
+  if (!email) {
+    return res.status(400).json({ Msg: "An email is required!" });
+  }
+  try {
+    await sendConfirmationEmail(email);
+    res.status(200).json({ Msg: "Mail was successfully sent" });
+  } catch (err) {
+    res.status(500).json({ error: err, Msg: "There was a technical error" });
+  }
+};
+
+module.exports = {
+  verifyPayment,
+  createOrder,
+  getall,
+  updateStatus,
+  sendemail,
+};
