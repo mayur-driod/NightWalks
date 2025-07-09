@@ -148,7 +148,10 @@ const Cart = ({ cart, setCart }) => {
               type="tel"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
-              placeholder="123456789"
+              placeholder="+91 98765 43210"
+              required
+              pattern="[6-9][0-9]{9}"
+              title="Enter a valid 10-digit phone number starting with 6, 7, 8, or 9"
               className="border bg-gray-50 border-gray-300 px-4 py-2 w-full rounded mt-2"
             />
 

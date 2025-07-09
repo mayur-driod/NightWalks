@@ -38,7 +38,7 @@ function Track() {
     <>
       <div className="min-h-screen px-4 py-8 bg-[rgba(0,0,0,0.7)] text-white z-1">
         <h1 className="text-3xl font-bold mb-8 mt-10 text-center">
-          Track Your Order
+          Confirm Your Session Status
         </h1>
 
         <form
@@ -47,7 +47,10 @@ function Track() {
         >
           <input
             type="tel"
-            placeholder="Enter your phone number"
+            placeholder="+91 98765 43210"
+            required
+            pattern="[6-9][0-9]{9}"
+            title="Enter a valid 10-digit phone number starting with 6, 7, 8, or 9"
             value={contactInput}
             onChange={(e) => setContactInput(e.target.value)}
             className="w-full max-w-lg px-4 py-2 rounded border border-gray-300 shadow-sm bg-white text-black focus:outline-none focus:ring-2 focus:ring-teal-500"
