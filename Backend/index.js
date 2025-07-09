@@ -27,6 +27,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ message: "Server is healthy" });
+}); // this is used for keeping the server alive
+
 app.use("/api", router);
 app.use("/access", accessrouter);
 app.use("/Events", Eventrouter);
