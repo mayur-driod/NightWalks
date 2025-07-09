@@ -118,7 +118,7 @@ function Buy() {
         <img
           src={stars}
           alt="Background stars"
-          className="absolute  left-0 w-full h-full object-cover opacity-30 z-0"
+          className="absolute left-0 w-full h-full object-cover opacity-30 z-0"
         />
       </div>
     </section>

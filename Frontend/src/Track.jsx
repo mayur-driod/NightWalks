@@ -38,7 +38,7 @@ function Track() {
     <>
       <div className="min-h-screen px-4 py-8 bg-[rgba(0,0,0,0.7)] text-white z-1">
         <h1 className="text-3xl font-bold mb-8 mt-10 text-center">
-          Track Your Order
+          Confirm Your Session Status
         </h1>
 
         <form
