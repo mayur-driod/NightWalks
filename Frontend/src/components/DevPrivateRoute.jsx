@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -10,6 +10,8 @@ const DevPrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isError, setIsError] = useState(false);
   const [visible, setVisible] = useState(false);
+
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -66,6 +68,15 @@ const DevPrivateRoute = ({ children }) => {
 
   return (
     <div className="flex flex-col gap-10 justify-center items-center min-h-screen">
+      <button
+        onClick={() => {
+          Navigate("/uptime");
+        }}
+        className="fixed top-20 right-5 bg-green-400 px-6 py-4 text-lg md:text-xl sm:px-4 sm:py-2 sm:text-base rounded-2xl text-white shadow-lg transition duration-300 hover:bg-green-500"
+      >
+        Uptime Robot Status
+      </button>
+
       <h1 className="text-red-500 text-2xl font-bold tracking-wider animate-pulse">
         🚫 Restricted Zone: Authorized Personnel Only!
       </h1>
