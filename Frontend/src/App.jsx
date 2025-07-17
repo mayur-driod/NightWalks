@@ -9,6 +9,8 @@ import Dev from "./Dev";
 import DevPrivateRoute from "./components/DevPrivateRoute";
 import Footer from "./components/Footer";
 import DevDashboard from "./DevDashboard";
+import Uptime from "./components/Uptime";
+import Page404 from "./components/page404";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
             </DevPrivateRoute>
           }
         />
+        <Route path="/uptime" element={<Uptime />} />
+        <Route path="*" element={<Page404 />} />{" "}
       </Routes>
       <Footer />
     </>
