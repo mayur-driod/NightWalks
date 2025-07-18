@@ -1,6 +1,6 @@
 ---
 name: 🐛 Bug Report
-about: Report a bug to help us improve TerraQuest
+about: Report a bug to help us improve Attacus and Psyche
 title: "[BUG] "
 labels: bug
 assignees: ''
