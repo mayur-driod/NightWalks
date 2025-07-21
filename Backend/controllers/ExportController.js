@@ -1,6 +1,6 @@
 const Order = require("../models/Order");
 const Event = require("../models/Event");
-const { Parser } = require("json2csv");
+const { json2csv } = require("json-2-csv");
 const XLSX = require("xlsx");
 
 exports.exportParticipantsByEvent = async (req, res) => {
@@ -29,7 +29,7 @@ exports.exportParticipantsByEvent = async (req, res) => {
       }
     }
 
-    const csv = new Parser().parse(data);
+    const csv = await json2csv(data);
 
     res.setHeader("Content-Type", "text/csv");
     res.setHeader(

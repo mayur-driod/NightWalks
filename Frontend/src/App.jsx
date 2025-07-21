@@ -11,7 +11,6 @@ import Footer from "./components/Footer";
 import DevDashboard from "./DevDashboard";
 import Uptime from "./components/Uptime";
 import Page404 from "./components/page404";
-import ExportEvent from "./components/ExportEvent";
 
 function App() {
   return (
@@ -39,7 +38,6 @@ function App() {
           }
         />
         <Route path="/uptime" element={<Uptime />} />
-        <Route path="/export" element={<ExportEvent />} />
         <Route path="*" element={<Page404 />} />{" "}
       </Routes>
       <Footer />

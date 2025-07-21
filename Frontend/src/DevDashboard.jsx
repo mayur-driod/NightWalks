@@ -136,7 +136,7 @@ function DevDashboard() {
   const handleDownloadParticipants = async (eventId, eventName) => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/export/participants/${eventId}`,
+        `https://nightwalks.onrender.com/api/export/participants/${eventId}`,
         { responseType: "blob" },
       );
 
@@ -154,9 +154,12 @@ function DevDashboard() {
 
   const handleDownloadAllOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/export/orders", {
-        responseType: "blob",
-      });
+      const res = await axios.get(
+        "https://nightwalks.onrender.com/api/export/orders",
+        {
+          responseType: "blob",
+        },
+      );
 
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
