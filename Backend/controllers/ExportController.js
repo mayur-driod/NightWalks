@@ -34,7 +34,7 @@ exports.exportParticipantsByEvent = async (req, res) => {
     res.setHeader("Content-Type", "text/csv");
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename="participants-${event.name.replace(/[^a-z0-9_.-]/gi, '_')}.csv"`,
+      `attachment; filename="participants-${event.name.replace(/[^a-z0-9_.-]/gi, "_")}.csv"`,
     );
     res.send(csv);
   } catch (err) {
