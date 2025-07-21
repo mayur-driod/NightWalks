@@ -95,8 +95,8 @@ const updateStatus = async (req, res) => {
     if (!updated) return res.status(404).json({ msg: "Order not found" });
 
     const ord = await Order.findById(id);
-    if(status == "CONFIRMED"){
-    const sent = await sendConfirmationEmail(ord.email); //only sends the email if the status is confirmed.
+    if (status == "CONFIRMED") {
+      const sent = await sendConfirmationEmail(ord.email); //only sends the email if the status is confirmed.
     }
 
     res.status(200).json({ msg: "Status updated", order: updated, mail: sent });

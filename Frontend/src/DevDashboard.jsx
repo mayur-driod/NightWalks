@@ -133,6 +133,43 @@ function DevDashboard() {
       });
   };
 
+  const handleDownloadParticipants = async (eventId, eventName) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/api/export/participants/${eventId}`,
+        { responseType: "blob" },
+      );
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `participants-${eventName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.error("Download failed:", err);
+      alert("Failed to download participants");
+    }
+  };
+
+  const handleDownloadAllOrders = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/export/orders", {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "all-orders.xlsx");
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.error("Download failed:", err);
+      alert("Failed to download orders");
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <button
@@ -157,6 +194,15 @@ function DevDashboard() {
           </button>
         </div>
         <ul>
+          <div className="mt-6">
+            <button
+              className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 text-sm"
+              onClick={handleDownloadAllOrders}
+            >
+              Export All Orders (Excel)
+            </button>
+          </div>
+
           {liveEvents.map((event) => (
             <li
               key={event._id}
@@ -173,13 +219,24 @@ function DevDashboard() {
                   <div className="text-sm text-green-700">₹{event.price}</div>
                 )}
               </div>
-              <button
-                className="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                onClick={() => handleDisableEvent(event._id)}
-                title="Disable Event"
-              >
-                Disable
-              </button>
+              <div className="flex flex-col gap-1">
+                <button
+                  className="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                  onClick={() => handleDisableEvent(event._id)}
+                  title="Disable Event"
+                >
+                  Disable
+                </button>
+                <button
+                  className="ml-2 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                  onClick={() =>
+                    handleDownloadParticipants(event._id, event.name)
+                  }
+                  title="Export Participants"
+                >
+                  Export CSV
+                </button>
+              </div>
             </li>
           ))}
         </ul>

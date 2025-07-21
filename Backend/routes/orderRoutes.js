@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const ExportController = require("../controllers/ExportController");
 const {
   createOrder,
   verifyPayment,
@@ -16,5 +17,14 @@ router.post("/sendemail", sendemail);
 router.get("/getall", getall);
 
 router.put("/update-status/:id", updateStatus);
+
+//export specific order
+router.get(
+  "/export/participants/:eventId",
+  ExportController.exportParticipantsByEvent,
+);
+
+// Export all orders
+router.get("/export/orders", ExportController.exportAllOrders);
 
 module.exports = router;
